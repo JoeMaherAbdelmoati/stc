@@ -2,14 +2,15 @@ import React from "react";
 import { Formik } from "formik";
 import { useHistory } from "react-router-dom";
 
-import { addDeviceValidationSchema } from './addDeviceValidationSchema';
+import { addDeviceValidationSchema } from "./addDeviceValidationSchema";
 import FormField from "./formFeild";
 import FormFileField from "./formFileFeild";
 import TextArea from "./textArea";
-import {createDevice} from "../Services";
+import { createDevice } from "../Services";
+import Spinner from "./Spinner";
 
 const AddDevice = () => {
-    const history=useHistory();
+  const history = useHistory();
   return (
     <div className="container add-device pt-5">
       <Formik
@@ -32,22 +33,20 @@ const AddDevice = () => {
           }
           if (!values.coverImage || !values.image) return;
 
-          createDevice({...values,features}).then(()=>{
-              history.push('/')
-          }).catch(()=>{
+          createDevice({ ...values, features })
+            .then(() => {
+              history.push("/");
+            })
+            .catch(() => {
               actions.setSubmitting(false);
-          })
+            });
         }}
         validationSchema={addDeviceValidationSchema}
       >
         {props => {
           return (
             <form className="row" onSubmit={props.handleSubmit}>
-                {props.isSubmitting&&<div className={'center-icon'}>
-                    <div className="spinner-border" role="status">
-                        <span className="visually-hidden">Loading...</span>
-                    </div>
-                </div>}
+              {props.isSubmitting && <Spinner />}
               <FormField
                 formikProps={props}
                 name={"name"}
@@ -61,7 +60,9 @@ const AddDevice = () => {
                       props.values.category === "" ? "opacity-7" : ""
                     }`}
                     name={"category"}
-                    onChange={e => props.setFieldValue("category", e.target.value)}
+                    onChange={e =>
+                      props.setFieldValue("category", e.target.value)
+                    }
                     value={props.values.category}
                   >
                     <option value="" disabled>
@@ -105,12 +106,17 @@ const AddDevice = () => {
                 displayName={"Features in details page:"}
                 name={"features"}
               />
-                <div className='col-12 text-center'>
-                    <button disabled={props.isSubmitting}
-                            className={`btn btn-primary ${props.isSubmitting ? 'opacity-7' : ''}`} type={"submit"}>
-                        Submit
-                    </button>
-                </div>
+              <div className="col-12 text-center">
+                <button
+                  disabled={props.isSubmitting}
+                  className={`btn btn-primary ${
+                    props.isSubmitting ? "opacity-7" : ""
+                  }`}
+                  type={"submit"}
+                >
+                  Submit
+                </button>
+              </div>
             </form>
           );
         }}

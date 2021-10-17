@@ -7,3 +7,12 @@ export declare interface DeviceInterface {
     title:string
     details:string
 }
+
+export declare interface DeviceListInterface extends DeviceInterface{
+
+    id: string;
+    image: string;
+    coverImage: string;
+
+}
+
