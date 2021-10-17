@@ -1,0 +1,23 @@
+@import "~bootstrap";
+@import "font";
+@import "constants";
+
+.header {
+  background: $purple;
+
+  .header-icon {
+    width: 25px;
+    height: 25px;
+
+    path {
+      stroke: $white;
+    }
+  }
+
+  .home {
+    text-decoration: none;
+    color: $white;
+    font-family: $font-bold;
+    font-size: $font-big;
+  }
+}
