@@ -40,4 +40,9 @@ const getData = async (collectionName: string) => {
   });
   return result;
 };
-export default { createDocument, uploadImage, getData };
+const exportedObject = {
+  createDocument,
+  uploadImage,
+  getData
+};
+export default exportedObject;
